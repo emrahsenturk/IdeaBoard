@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdeaBoard.Business.Enumerations
+namespace IdeaBoard.Core.Enumerations
 {
     public enum RowStates
     {
