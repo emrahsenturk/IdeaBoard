@@ -4,4 +4,12 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Base\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IdeaBoard.Entity\IdeaBoard.Entity.csproj" />
+  </ItemGroup>
+
 </Project>

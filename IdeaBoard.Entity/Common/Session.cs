@@ -2,7 +2,7 @@
 
 namespace IdeaBoard.Entity.Common
 {
-    public partial class Session : BaseEntity
+    public class Session : BaseEntity
     {
         public string Name { get; set; }
     }
