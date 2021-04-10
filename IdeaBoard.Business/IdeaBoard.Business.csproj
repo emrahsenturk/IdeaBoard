@@ -4,4 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IdeaBoard.Core\IdeaBoard.Core.csproj" />
+    <ProjectReference Include="..\IdeaBoard.DataAccess\IdeaBoard.DataAccess.csproj" />
+    <ProjectReference Include="..\IdeaBoard.Model\IdeaBoard.Model.csproj" />
+  </ItemGroup>
+
 </Project>
