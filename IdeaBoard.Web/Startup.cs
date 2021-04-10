@@ -26,7 +26,7 @@ namespace IdeaBoard.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<IdeaBoardDbContext>(opts =>
-                opts.UseSqlServer(Configuration["ConnectionStrings:IdeaBoard"], b => b.MigrationsAssembly("IdeaBoard.Web")));
+                opts.UseSqlServer(Configuration["ConnectionStrings:IdeaBoard"]));
             services.AddControllersWithViews();
         }
 

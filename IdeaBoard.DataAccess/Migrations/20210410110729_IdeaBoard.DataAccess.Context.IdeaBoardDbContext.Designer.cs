@@ -4,14 +4,16 @@ using IdeaBoard.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace IdeaBoard.Web.Migrations
+namespace IdeaBoard.DataAccess.Migrations
 {
     [DbContext(typeof(IdeaBoardDbContext))]
-    partial class IdeaBoardDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210410110729_IdeaBoard.DataAccess.Context.IdeaBoardDbContext")]
+    partial class IdeaBoardDataAccessContextIdeaBoardDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,6 +36,9 @@ namespace IdeaBoard.Web.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte>("RowStateId")
+                        .HasColumnType("tinyint");
+
                     b.HasKey("Id");
 
                     b.ToTable("Sessions");
@@ -53,6 +58,9 @@ namespace IdeaBoard.Web.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte>("RowStateId")
+                        .HasColumnType("tinyint");
 
                     b.Property<Guid>("SessionId")
                         .HasColumnType("uniqueidentifier");
