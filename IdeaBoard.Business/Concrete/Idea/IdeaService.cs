@@ -1,19 +1,19 @@
 ﻿using IdeaBoard.Business.Abstract.Idea;
 using IdeaBoard.Business.Concrete.Base;
-using IdeaBoard.DataAccess.Abstract.Base;
+using IdeaBoard.DataAccess.Abstract.Idea;
 using IdeaBoard.Model.Idea;
 using System;
 
 namespace IdeaBoard.Business.Concrete.Idea
 {
-    public class IdeaService : BaseService<IdeaModel, Guid>, IIdeaService
+    public class IdeaService : BaseService<IIdeaDal, IdeaModel, Guid>, IIdeaService
     {
-        private readonly IBaseRepository<IdeaModel, Guid> repository;
+        private readonly IIdeaDal ideaDal;
 
         public IdeaService(
-            IBaseRepository<IdeaModel, Guid> repository) : base(repository)
+            IIdeaDal ideaDal) : base(ideaDal)
         {
-            this.repository = repository;
+            this.ideaDal = ideaDal;
         }
     }
 }

@@ -6,34 +6,35 @@ using System.Linq.Expressions;
 
 namespace IdeaBoard.Business.Concrete.Base
 {
-    public class BaseService<TModel, TId> : IBaseService<TModel, TId>
+    public class BaseService<Tdal, TModel, TId> : IBaseService<TModel, TId>
         where TModel : class
+        where Tdal : IBaseRepository<TModel, TId>
     {
-        protected readonly IBaseRepository<TModel, TId> repository;
+        protected readonly Tdal dal;
 
-        public BaseService(IBaseRepository<TModel, TId> repository)
+        public BaseService(Tdal dal)
         {
-            this.repository = repository;
+            this.dal = dal;
         }
 
         public TModel GetById(TId id)
         {
-            return repository.GetById(id);
+            return dal.GetById(id);
         }
 
         public IQueryable<TModel> GetQueryable()
         {
-            return repository.GetQueryable();
+            return dal.GetQueryable();
         }
 
         public IQueryable<TModel> GetQueryable(Expression<Func<TModel, bool>> predicate)
         {
-            return repository.GetQueryable(predicate);
+            return dal.GetQueryable(predicate);
         }
 
         public TModel Insert(TModel model)
         {
-            return repository.Insert(model);
+            return dal.Insert(model);
         }
     }
 }

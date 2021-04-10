@@ -1,4 +1,16 @@
+using IdeaBoard.Business.Abstract.Common;
+using IdeaBoard.Business.Abstract.Idea;
+using IdeaBoard.Business.Concrete.Common;
+using IdeaBoard.Business.Concrete.Idea;
+using IdeaBoard.DataAccess.Abstract.Base;
+using IdeaBoard.DataAccess.Abstract.Common;
+using IdeaBoard.DataAccess.Abstract.Idea;
+using IdeaBoard.DataAccess.Concrete.Base;
+using IdeaBoard.DataAccess.Concrete.Common;
+using IdeaBoard.DataAccess.Concrete.Idea;
 using IdeaBoard.DataAccess.Context;
+using IdeaBoard.Model.Common;
+using IdeaBoard.Model.Idea;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,8 +37,9 @@ namespace IdeaBoard.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IdeaBoardDbContext>(opts =>
-                opts.UseSqlServer(Configuration["ConnectionStrings:IdeaBoard"]));
+            ConfigureDatabase(services);
+            InjectDataAccess(services);
+            InjectBusinessServices(services);
             services.AddControllersWithViews();
         }
 
@@ -56,6 +69,34 @@ namespace IdeaBoard.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private void ConfigureDatabase(IServiceCollection services)
+        {
+            services.AddDbContext<IdeaBoardDbContext>(opts =>
+                opts.UseSqlServer(Configuration["ConnectionStrings:IdeaBoard"]));
+        }
+
+        private void InjectDataAccess(IServiceCollection services)
+        {
+            #region Common
+            services.AddScoped<ISessionDal, SessionDal>();
+            #endregion
+
+            #region Idea
+            services.AddScoped<IIdeaDal, IdeaDal>();
+            #endregion
+        }
+
+        private void InjectBusinessServices(IServiceCollection services)
+        {
+            #region Common
+            services.AddScoped<ISessionService, SessionService>();
+            #endregion
+
+            #region Idea
+            services.AddScoped<IIdeaService, IdeaService>();
+            #endregion
         }
     }
 }
