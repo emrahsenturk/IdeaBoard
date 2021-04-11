@@ -32,6 +32,14 @@ namespace IdeaBoard.Business.Concrete.Base
             return dal.GetQueryable(predicate);
         }
 
+        public IQueryable<TModel> GetQueryable(Expression<Func<TModel, bool>> predicate, params string[] includes)
+        {
+            if (includes == null)
+                throw new ArgumentNullException("includes", "Value cannot be null");
+
+            return dal.GetQueryable(predicate, includes);
+        }
+
         public TModel Insert(TModel model)
         {
             return dal.Insert(model);

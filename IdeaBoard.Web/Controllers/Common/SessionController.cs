@@ -4,6 +4,7 @@ using IdeaBoard.Web.Controllers.Base;
 using IdeaBoard.Web.Models.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
 
 namespace IdeaBoard.Web.Controllers.Common
@@ -25,6 +26,12 @@ namespace IdeaBoard.Web.Controllers.Common
         {
             var activeSessions = sessionService.GetQueryable().ToList();
             return View(ToViewModels(activeSessions));
+        }
+
+        public IActionResult Ideas(Guid sessionId)
+        {
+            var session = sessionService.GetQueryable(q => q.Id == sessionId, "Ideas").FirstOrDefault();
+            return View(ToViewModel(session));
         }
     }
 }

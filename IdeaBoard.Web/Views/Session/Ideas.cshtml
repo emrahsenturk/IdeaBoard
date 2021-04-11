@@ -1,0 +1,96 @@
+﻿@model IdeaBoard.Web.Models.Common.SessionViewModel
+
+@{
+    ViewData["Title"] = "Fikirler";
+}
+
+<div class="row">
+    <div class="col-6">
+        <h1>
+            Fikirler
+            <button class="btn btn-success text-white" data-toggle="modal" data-target="#addIdeaModal"><i class="fas fa-plus-circle"></i> Fikir Ekle</button>
+        </h1>
+    </div>
+    <div class="col-6 text-right">
+        <a class="btn btn-light btn-sm" asp-controller="Session" asp-action="Index"><i class="fas fa-arrow-circle-left"></i> Geri Dön</a>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <input id="sessionId" type="hidden" value="@Model.Id" />
+    @foreach (var idea in Model.Ideas)
+    {
+        <div class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom: 10px">
+            <div class="card rounded" style="padding-top:10px;">
+                <i class="far fa-smile fa-3x mx-auto"></i>
+                <div class="card-body">
+                    <p class="card-text">@idea.Description</p>
+                    <a href="#" class="btn fa-pull-right"><i class="far fa-thumbs-up"></i> 5</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="addIdeaModal" tabindex="-1" role="dialog" aria-labelledby="addIdeaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Fikir Ekle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="divIdeaEmojis" class="col-form-label">Emoji:</label>
+                        <div id="divIdeaEmojis" class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label id="lblIdeaEmoji_1" class="btn btn-light">
+                                <input type="radio" name="ideaEmojis" id="ideaEmoji_1" autocomplete="off" /><i class="far fa-grin fa-3x"></i>
+                            </label>
+
+                            <label id="lblIdeaEmoji_2" class="btn btn-light">
+                                <input type="radio" name="ideaEmojis" id="ideaEmoji_2" autocomplete="off" /><i class="far fa-grin-alt fa-3x"></i>
+                            </label>
+
+                            <label id="lblIdeaEmoji_3" class="btn btn-light">
+                                <input type="radio" name="ideaEmojis" id="ideaEmoji_3" autocomplete="off" /><i class="far fa-grin-beam fa-3x"></i>
+                            </label>
+
+                            <label id="lblIdeaEmoji_4" class="btn btn-light">
+                                <input type="radio" name="ideaEmojis" id="ideaEmoji_4" autocomplete="off" /><i class="far fa-grin-stars fa-3x"></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ideaDescription" class="col-form-label">Fikir:</label>
+                        <textarea class="form-control" id="ideaDescription" rows="4"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary"><i class="fas fa-save"></i> Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /*[type='radio'] {
+        display: none;
+    }*/
+</style>
+
+<script src="~/js/hubs/ideaHub.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+
+    });
+
+</script>

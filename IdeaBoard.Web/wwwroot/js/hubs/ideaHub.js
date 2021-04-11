@@ -2,7 +2,13 @@
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/ideaHub").build();
 
-document.getElementById("sendButton").disabled = true;
+document.getElementById("btnSaveIdea").disabled = true;
+
+connection.start().then(function () {
+    document.getElementById("btnSaveIdea").disabled = false;
+}).catch(function (err) {
+    return console.error(err.toString());
+});
 
 connection.on("UpdateIdeas", function (user, message) {
     var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -12,17 +18,13 @@ connection.on("UpdateIdeas", function (user, message) {
     document.getElementById("messagesList").appendChild(li);
 });
 
-connection.start().then(function () {
-    document.getElementById("sendButton").disabled = false;
-}).catch(function (err) {
-    return console.error(err.toString());
-});
 
-document.getElementById("sendButton").addEventListener("click", function (event) {
-    var user = document.getElementById("userInput").value;
-    var message = document.getElementById("messageInput").value;
-    console.log(user, message);
-    connection.invoke("SaveIdea", user, message).catch(function (err) {
+
+document.getElementById("btnSaveIdea").addEventListener("click", function (event) {
+    var sessionId = document.getElementById("sessionId").value;
+    var ideaDescription = document.getElementById("ideaDescription").value;
+    console.log(sessionId, ideaDescription);
+    connection.invoke("SaveIdea", sessionId, ideaDescription).catch(function (err) {
         return console.error(err.toString());
     });
     event.preventDefault();

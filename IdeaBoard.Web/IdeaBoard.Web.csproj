@@ -21,4 +21,8 @@
     <ProjectReference Include="..\IdeaBoard.Model\IdeaBoard.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Idea\" />
+  </ItemGroup>
+
 </Project>
