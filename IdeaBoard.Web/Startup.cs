@@ -1,32 +1,32 @@
+using AutoMapper;
 using IdeaBoard.Business.Abstract.Common;
 using IdeaBoard.Business.Abstract.Idea;
 using IdeaBoard.Business.Concrete.Common;
 using IdeaBoard.Business.Concrete.Idea;
-using IdeaBoard.DataAccess.Abstract.Base;
 using IdeaBoard.DataAccess.Abstract.Common;
 using IdeaBoard.DataAccess.Abstract.Idea;
-using IdeaBoard.DataAccess.Concrete.Base;
 using IdeaBoard.DataAccess.Concrete.Common;
 using IdeaBoard.DataAccess.Concrete.Idea;
 using IdeaBoard.DataAccess.Context;
-using IdeaBoard.Model.Common;
-using IdeaBoard.Model.Idea;
+using IdeaBoard.Web.Hubs;
+using IdeaBoard.Web.Infrastructure.AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IdeaBoard.Web
 {
     public class Startup
     {
+        public static class ServiceProviderFactory
+        {
+            public static IServiceProvider ServiceProvider { get; set; }
+        }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -37,9 +37,14 @@ namespace IdeaBoard.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureMapper(services);
             ConfigureDatabase(services);
             InjectDataAccess(services);
             InjectBusinessServices(services);
+            services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true;
+            });
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
         }
@@ -47,6 +52,8 @@ namespace IdeaBoard.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            ServiceProviderFactory.ServiceProvider = app.ApplicationServices;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -68,8 +75,20 @@ namespace IdeaBoard.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Session}/{action=Index}/{id?}");
+                endpoints.MapHub<IdeaHub>("/ideaHub");
             });
+        }
+
+        private void ConfigureMapper(IServiceCollection services)
+        {
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         private void ConfigureDatabase(IServiceCollection services)
