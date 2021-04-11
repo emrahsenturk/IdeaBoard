@@ -1,0 +1,95 @@
+﻿@model List<IdeaBoard.Web.Models.Common.SessionViewModel>
+
+@{
+    ViewData["Title"] = "Oturumlar";
+}
+
+<div class="row">
+    <div class="col-6">
+        <h1>Oturumlar</h1>
+    </div>
+    <div class="col-6 text-right">
+        <span class="btn btn-success btn-sm text-white mr-2">Aktif</span>
+        <span class="btn btn-primary btn-sm text-white">Aktif Değil</span>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    @foreach (var session in Model)
+    {
+        <div class="col-lg-4 col-md-4 col-sm-6" style="margin-bottom: 10px">
+            <div class="card rounded" style="padding-top:10px;">
+                <i class="far fa-smile fa-3x mx-auto"></i>
+                <div class="card-body">
+                    <h5 class="card-title">@session.Name</h5>
+                    <p class="card-text">@session.Description</p>
+                    @{ 
+                        var IsActiveSssionClass = "btn-primary";
+                        if(session.IsActive)
+                        {
+                            IsActiveSssionClass = "btn-success";
+                        }
+                    }
+                    <a type="button" class="btn @IsActiveSssionClass btn-block" asp-controller="Idea" asp-action="Index" asp-route-sessionId="@session.Id">
+                        <i class="fas fa-person-booth"></i> Göz gezdir
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
+    @*<div class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom: 10px">
+            <div class="card rounded" style="padding-top:10px;">
+                <i class="far fa-smile fa-3x mx-auto"></i>
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn fa-pull-right"><i class="far fa-thumbs-up"></i> 5</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom: 10px">
+            <div class="card rounded" style="padding-top:10px">
+                <i class="far fa-grin fa-3x mx-auto"></i>
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn fa-pull-right"><i class="far fa-thumbs-up"></i> 5</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom: 10px">
+            <div class="card rounded" style="padding-top:10px">
+                <i class="far fa-grin-beam fa-3x mx-auto"></i>
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn fa-pull-right"><i class="far fa-thumbs-up"></i> 0</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom: 10px">
+            <div class="card rounded" style="padding-top:10px">
+                <i class="far fa-grin-stars fa-3x mx-auto"></i>
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn fa-pull-right"><i class="far fa-thumbs-up"></i> 3</a>
+                </div>
+            </div>
+        </div>*@
+
+</div>
+
+<script type="text/javascript">
+
+    //$(function () {
+
+    //})
+
+</script>
