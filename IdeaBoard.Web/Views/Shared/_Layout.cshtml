@@ -6,11 +6,13 @@
     <title>@ViewData["Title"] - IdeaBoard</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/dist/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/jquery-toast//dist/css/jquery.toast.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/font-awesome/dist/js/all.min.js"></script>
+    <script src="~/lib/jquery-toast/dist/js/jquery.toast.min.js"></script>
     <script src="~/lib/signalr/dist/js/signalr.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
@@ -36,7 +38,9 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @*@await RenderSectionAsync("_CommonFunctions", required: false)*@
             @RenderBody()
+            @{ Html.RenderPartial("_CommonFunctions", RenderSection("pagespecific", false)); }
         </main>
     </div>
 

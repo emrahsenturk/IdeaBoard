@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using IdeaBoard.Business.Abstract.Common;
+using IdeaBoard.Business.Abstract.Idea;
+using IdeaBoard.Model.Idea;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +11,30 @@ namespace IdeaBoard.Web.Hubs
 {
     public class IdeaHub : Hub
     {
-        public async Task SaveIdea(string sessionId, string description)
+        private readonly IIdeaService ideaService;
+        private readonly ISessionService sessionService;
+
+        public IdeaHub(
+            IIdeaService ideaService,
+            ISessionService sessionService)
         {
-            //Tüm ideas alınacak burada.
-            await Clients.All.SendAsync("UpdateIdeas", sessionId, description);
+            this.ideaService = ideaService;
+            this.sessionService = sessionService;
+        }
+
+        public async Task SaveIdea(string strSessionId, string description, string emojiId)
+        {
+            var sessionId = Guid.Parse(strSessionId);
+            var idea = new IdeaModel
+            {
+                SessionId = sessionId,
+                Description = description,
+                EmojiId = Convert.ToByte(emojiId)
+            };
+
+            idea = ideaService.Insert(idea);
+
+            await Clients.All.SendAsync("UpdateIdeas", sessionId, idea);
         }
     }
 }

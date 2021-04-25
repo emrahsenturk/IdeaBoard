@@ -7,5 +7,6 @@ namespace IdeaBoard.Entity.Idea
     {
         public Guid SessionId { get; set; }
         public string Description { get; set; }
+        public byte EmojiId { get; set; }
     }
 }

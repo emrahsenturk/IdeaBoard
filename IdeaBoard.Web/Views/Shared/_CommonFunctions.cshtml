@@ -1,0 +1,66 @@
+﻿<script type="text/javascript">
+
+    function getEmoji(emojiId) {
+        switch (emojiId) {
+            case 1:
+                return '<i class="far fa-grin fa-3x mx-auto"></i>';
+            case 2:
+                return '<i class="far fa-grin-alt fa-3x mx-auto"></i>';
+            case 3:
+                return '<i class="far fa-grin-beam fa-3x mx-auto"></i>';
+            case 4:
+                return '<i class="far fa-grin-stars fa-3x mx-auto"></i>';
+            default:
+                return '';
+        }
+    }
+
+    function showSuccessToast(message) {
+        $.toast({
+            heading: "<b>BİLGİLENDİRME</b>",
+            text: "<b>" + message + "</b>",
+            showHideTransition: 'slide',
+            bgColor: 'green',
+            textColor: 'white',
+            allowToastClose: false,
+            hideAfter: 3000,
+            stack: 5,
+            textAlign: 'left',
+            position: 'top-right',
+            icon: 'success'
+        })
+    }
+
+    function showWarningToast(message) {
+        $.toast({
+            heading: "<b>UYARI</b>",
+            text: "<b>" + message + "</b>",
+            showHideTransition: 'slide',
+            bgColor: 'orange',
+            textColor: 'white',
+            allowToastClose: false,
+            hideAfter: 3000,
+            stack: 5,
+            textAlign: 'left',
+            position: 'top-right',
+            icon: 'warning'
+        })
+    }
+
+    function showErrorToast(message) {
+        $.toast({
+            heading: "<b>HATA</b>",
+            text: "<b>" + message + "</b>",
+            showHideTransition: 'slide',
+            bgColor: 'orange',
+            textColor: 'white',
+            allowToastClose: false,
+            hideAfter: 3000,
+            stack: 5,
+            textAlign: 'left',
+            position: 'top-right',
+            icon: 'error'
+        })
+    }
+
+</script>
