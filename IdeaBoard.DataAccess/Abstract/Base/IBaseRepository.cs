@@ -12,5 +12,6 @@ namespace IdeaBoard.DataAccess.Abstract.Base
         IQueryable<TEntity> GetQueryable(Expression<Func<TEntity, bool>> predicate);
         IQueryable<TEntity> GetQueryable(Expression<Func<TEntity, bool>> predicate, params string[] includes);
         TEntity Insert(TEntity entity);
+        void Delete();
     }
 }

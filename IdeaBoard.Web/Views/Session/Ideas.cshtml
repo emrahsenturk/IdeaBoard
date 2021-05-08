@@ -22,14 +22,21 @@
     <input id="sessionId" type="hidden" value="@Model.Id" />
     @foreach (var idea in Model.Ideas)
     {
-        <div class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom: 10px">
+        <div id="idea_@idea.Id" class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom: 10px">
             <div class="card rounded" style="padding-top:10px;">
                 <i class="far fa-smile fa-3x mx-auto"></i>
                 <div class="card-body">
                     <p class="card-text">@idea.Description</p>
+                    <button id="btnDeleteIdea_@idea.Id" class="btn btn-sm btn-outline-danger">X</button>
                     <a href="#" class="btn fa-pull-right"><i class="far fa-thumbs-up"></i> 5</a>
                 </div>
             </div>
+        </div>
+    }
+    @if(!Model.Ideas.Any())
+    {
+        <div id="divNoIdeas" class="alert alert-primary" role="alert">
+            Fikir bulunamadı.
         </div>
     }
 </div>
