@@ -45,6 +45,11 @@ namespace IdeaBoard.Business.Concrete.Base
             return dal.Insert(model);
         }
 
+        public TModel Update(TModel model)
+        {
+            return dal.Update(model);
+        }
+
         public void Delete(TId id)
         {
             dal.Delete(id);

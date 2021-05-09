@@ -42,12 +42,12 @@ namespace IdeaBoard.Web.Hubs
             await Clients.All.SendAsync("AddNewIdea", sessionId, idea);
         }
 
-        public async Task DeleteIdea(string strIdeaId)
+        public async Task DeleteIdea(string strIdeaId, string sessionId)
         {
             var ideaId = Guid.Parse(strIdeaId);
             ideaService.Delete(ideaId);
 
-            await Clients.All.SendAsync("RemoveIdea");
+            await Clients.All.SendAsync("RemoveIdea", sessionId, strIdeaId);
         }
     }
 }

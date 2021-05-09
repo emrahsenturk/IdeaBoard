@@ -27,18 +27,15 @@
                 <i class="far fa-smile fa-3x mx-auto"></i>
                 <div class="card-body">
                     <p class="card-text">@idea.Description</p>
-                    <button id="btnDeleteIdea_@idea.Id" class="btn btn-sm btn-outline-danger">X</button>
-                    <a href="#" class="btn fa-pull-right"><i class="far fa-thumbs-up"></i> 5</a>
+                    <button id="btnDeleteIdea_@idea.Id" class="btn btn-sm btn-outline-danger">Sil</button>
+                    <a href="#" class="btn fa-pull-right"><i class="far fa-thumbs-up"></i> 0</a>
                 </div>
             </div>
         </div>
     }
-    @if(!Model.Ideas.Any())
-    {
-        <div id="divNoIdeas" class="alert alert-primary" role="alert">
-            Fikir bulunamadı.
-        </div>
-    }
+    <div id="divNoIdeas" class="alert alert-primary" role="alert">
+        Fikir bulunamadı.
+    </div>
 </div>
 
 <div class="modal fade" id="addIdeaModal" tabindex="-1" role="dialog" aria-labelledby="addIdeaModalLabel" aria-hidden="true">
@@ -92,11 +89,23 @@
     }*/
 </style>
 
-<script src="~/js/hubs/ideaHub.js"></script>
+@*<script src="~/js/hubs/ideaHub.js"></script>*@
 
 <script type="text/javascript">
 
     $(function () {
+
+        let myCoolCode = document.createElement("script");
+        myCoolCode.setAttribute("src", "https://localhost:44346/js/hubs/ideaHub.js");
+        document.body.appendChild(myCoolCode);
+
+        @if(Model.Ideas.Any())
+        {
+            <text>
+            $('#divNoIdeas').hide();
+            </text>
+        }
+
         $('input[id^=ideaEmoji_]').change(function () {
             var selectedInputId = $(this).attr('id');
             var selectedNo = selectedInputId.split('_')[1];

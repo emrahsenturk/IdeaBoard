@@ -17,14 +17,24 @@ connection.on("AddNewIdea", function (sessionId, idea) {
     items.push(getEmoji(idea.emojiId));
     items.push('<div class="card-body">');
     items.push('<p class="card-text">' + idea.description + '</p>');
-    items.push('<button id="btnDeleteIdea_' + idea.id + '" class="btn btn-sm btn-outline-danger text-danger" href="javascript:void">X</button>');
+    items.push('<button id="btnDeleteIdea_' + idea.id + '" class="btn btn-sm btn-outline-danger">X</button>');
     items.push('<a href="#" class="btn fa-pull-right"><i class="far fa-thumbs-up"></i> 0</a>');
     items.push('</div>');
     items.push('</div>');
     items.push('</div>');
 
     $('#sessionIdeas_' + sessionId).prepend(items.join(''));
+    $('#divNoIdeas').hide();
     window.showSuccessToast("Fikir eklendi.");
+});
+
+connection.on("RemoveIdea", function (sessionId, ideaId) {
+    $('#idea_' + ideaId).remove();
+    var ideaCount = $('#sessionIdeas_' + sessionId + ' div[id^=idea_]').length;
+    if (ideaCount === 0) {
+        $('#divNoIdeas').show();
+    }
+    window.showSuccessToast("Fikir silindi.");
 });
 
 document.getElementById("btnSaveIdea").addEventListener("click", function (event) {
@@ -45,18 +55,18 @@ document.getElementById("btnSaveIdea").addEventListener("click", function (event
     });
     clearInputs();
     $('#addIdeaModal').modal('hide');
-    $('#divNoIdeas').hide();
     event.preventDefault();
 });
 
-$('[id^=btnDeleteIdea_]').addEventListener("click", function (event) {
+document.getElementById()
+//$('[id^=btnDeleteIdea_]').click(function (event) {
+    console.log("geldi");
+    var sessionId = document.getElementById("sessionId").value;
     var btnId = $(this).attr('id');
     var ideaId = btnId.split('_')[1];
-    connection.invoke("DeleteIdea", ideaId).catch(function (err) {
+    connection.invoke("DeleteIdea", ideaId, sessionId).catch(function (err) {
         return console.error(err.toString());
     });
-    
-    //$('#divNoIdeas').hide();
     event.preventDefault();
 });
 

@@ -12,6 +12,7 @@ namespace IdeaBoard.Business.Abstract.Base
         IQueryable<TModel> GetQueryable(Expression<Func<TModel, bool>> predicate);
         IQueryable<TModel> GetQueryable(Expression<Func<TModel, bool>> predicate, params string[] includes);
         TModel Insert(TModel model);
+        TModel Update(TModel model);
         void Delete(TId id);
     }
 }
